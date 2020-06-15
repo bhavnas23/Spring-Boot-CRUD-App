@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+ xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Car Views</title>
+</head>
+<body>
+
+<div th:switch="${users}">
+    <h2 th:case="null">No users yet!</h2>
+        <div th:case="*">
+            <h2>Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.carId}"></td>
+                    <td th:text="${user.carName}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${user.carId})}">Edit</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${user.carId})}">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+    <p><a href="/signup">Add a new user</a></p>
+</div>
+
+<!-- <div align="center">
+    <h1>Product List</h1>
+    <a href="/new">Create New Product</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Car ID</th>
+                <th>Car Name</th>
+                <th>Car Model</th>
+                <th>Manufacture Name</th>
+                <th>Manufacture Year</th>
+                <th>Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="car : ${listCars}">
+                <td th:text="${car.getCarID()}">Car ID</td>
+                <td th:text="${car.carName}">Car Name</td>
+                <td th:text="${car.carModel}">Car Model</td>
+                <td th:text="${car.manufactureName}">Manufacture Name</td>
+                <td th:text="${car.manufactureYear}">Manufacture Year</td>
+                <td th:text="${car.carColor}">Color</td>
+                <td>
+                    <a th:href="/@{'/edit/' + ${car.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="/@{'/delete/' + ${car.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>  -->
+
+</body>
+</html>

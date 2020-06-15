@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Add Car</title>
+      
+   </head>
+   <body>
+      <h1>Create a Car:</h1>
+
+          
+      <form th:action="@{/addCar}"
+         th:object="${car}" method="POST">
+          <table border="0">
+         	<tr>
+		         <td>Car Id </td>
+		         <td><input type="text" th:attr="value=${car.carId}" th:field="*{carId}" /></td>    
+         	</tr>
+         	<tr>
+		         <td>Car Name</td>
+		         <td><input type="text" th:field="*{carName}" /></td>     
+		    </tr>
+		    <tr>
+		         <td>Model Name</td>
+		         <td><input type="text" th:field="*{carModel}" /></td>     
+		    </tr>
+		    <tr>
+		         <td>Manufacture Name</td>
+		         <td><input type="text" th:field="*{manufactureName}" /></td>     
+			</tr>
+			<tr>
+		         <td>Manufacture Year</td>
+		         <td><input type="text" th:field="*{manufactureYear}" /></td>     
+			</tr>
+			<tr>
+		         <td>Car Color</td>
+		         <td><input type="text" th:field="*{carColor}" /></td>
+			</tr>   
+		</table>  
+		<br/>
+         <input type="submit" value="Create" />
+      </form>
+       
+      <br/>
+       
+      <!-- Check if errorMessage is not null and not empty -->
+       
+      <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color:red;font-style:italic;">
+         ...
+      </div>
+       
+   </body>
+</html>
