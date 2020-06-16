@@ -44,4 +44,8 @@ public class CarServiceImpl implements CarService {
 	public void deleteCar(String carId) {
 		carDao.deleteCar(carId);
 	}
+	
+	public boolean findCarId(String carId) {
+		return carDao.findCarId(carId);
+	}
 }

@@ -11,4 +11,5 @@ public interface CarDao {
 	Car getCarById(String id);
 	void updateCar(Car car);
 	void deleteCar(String carId);
+	boolean findCarId(String id);
 }

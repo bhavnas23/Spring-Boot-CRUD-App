@@ -6,7 +6,7 @@
       
    </head>
    <body>
-      <h1>Create a Car:</h1>
+      <h1>Update a Car:</h1>
 
           
       <form th:action="@{/editCar/{id}}"
@@ -14,11 +14,11 @@
          <table border="0">
          	<tr>
 		         <td>Car Id </td>
-		         <td th:text="${car.carId}">...</td>    
+		         <td><div th:if="${carId}" th:utext="${carId}">...</div></td>    
          	</tr>
          	<tr>
 		         <td>Car Name</td>
-		         <td><input type="text"  th:value="${car.carName}" name="carName" /></td>     
+		         <td><input type="text"  th:field="*{carName}" /></td>     
 		    </tr>
 		    <tr>
 		         <td>Model Name</td>

@@ -99,9 +99,7 @@ public class CarDaoImpl extends JdbcDaoSupport implements CarDao{
 			}
 		});
 	}
-	
-	
-	
+		
 	@Override
 	public void updateCar(Car car) {
 		String sql = "Update cardetails SET "+
@@ -115,4 +113,12 @@ public class CarDaoImpl extends JdbcDaoSupport implements CarDao{
 		getJdbcTemplate().update(sql, new Object[] {carId});
 //		return jdbcTemplate.update(sqlQuery, id) > 0;
 	}
+	
+	@Override
+	public	boolean findCarId(String carId) {
+		String sql = "SELECT count(1) FROM cardetails WHERE CarId = ?";
+		int count = getJdbcTemplate().queryForObject(sql, new Object[] {carId}, Integer.class);
+		return count!=0?true:false;
+	}
+	
 }

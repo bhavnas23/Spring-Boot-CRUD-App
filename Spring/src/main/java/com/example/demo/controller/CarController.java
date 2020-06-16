@@ -26,7 +26,7 @@ public class CarController {
 	CarService cs;
 	
 
-	@RequestMapping(value="/welcome", method= RequestMethod.GET)
+	@RequestMapping(value= {"/welcome","/"}, method= RequestMethod.GET)
 	public String viewWelcomePage(Model model ) {
 	    model.addAttribute("message", "Welcome");
 	    return "welcome.html";
@@ -51,7 +51,7 @@ public class CarController {
     }
  
     @RequestMapping(value = { "/addCar" }, method = RequestMethod.POST)
-    public String insertCar(Model model, //
+    public String insertCar(Model model,
             @ModelAttribute("car") Car car) {
  
         String carId = car.getCarId();
@@ -62,7 +62,7 @@ public class CarController {
         String carColor=car.getCarColor();
  
 
-        if (carId != null && carId.length() > 0 //
+        if (carId != null && cs.findCarId(carId)==false && carId.length() > 0 //
                 && carName != null && carName.length() > 0) {
             Car newCar = new Car();
 	        newCar.setCarId(carId);
@@ -74,7 +74,7 @@ public class CarController {
 	        cs.insertCar(newCar);
 	        return "redirect:/carList";
         }
-        model.addAttribute("errorMessage", "Error");
+        model.addAttribute("errorMessage", "The record can not be added due to empty or duplicate CarId or empty car name");
         return "addCar.html";
     }
 	
@@ -117,8 +117,7 @@ public class CarController {
         String manufactureYear=car.getManufactureYear();
         String carColor=car.getCarColor();
  
-
-        if (carId != null && carId.length() > 0 
+        if (carId != null && cs.findCarId(carId)==true && carId.length() > 0 
                 && carName != null && carName.length() > 0) {
             Car newCar = new Car();
 	        newCar.setCarId(carId);
@@ -130,66 +129,10 @@ public class CarController {
 	        cs.updateCar(newCar);
 	        return "redirect:/carList";
         }
-        model.addAttribute("errorMessage", "The record can not be updated");
+        model.addAttribute("carId", carId);
+        model.addAttribute("carName", carName);
+        model.addAttribute("errorMessage", "The record can not be updated due to invalid or duplicate CarId or car name");
         return "editCar.html";
     }
-    
-    
-    
-//	@RequestMapping(value="/index", method= RequestMethod.GET)
-//	public String viewHomePage2(Model model ) {
-////		String mv=new ModelAndView("index");
-//	    List<Car> listCars = cs.getAllCars();//	   
-//	    model.addAttribute("users", listCars);
-////	    return "hello";
-//	    return "index.html";
-//	}
-//	@RequestMapping(value = { "/", "/welcome2" }, method = RequestMethod.GET)
-//  public String welcomePage(Model model) {
-//      model.addAttribute("title", "Welcome");
-//      model.addAttribute("message", "This is welcome page!");
-//      return "welcomePage";
-//  }
-//	
-//	@RequestMapping("/index2")
-//	public String viewHomePage(Map<String, Object> model ) {
-//		 model.put("message", "HowToDoInJava Reader !!");
-//	        return "index.jsp";
-//	}
-//	
-//	
-//	@RequestMapping(value="/save",method = RequestMethod.POST)    
-//    public String save(@ModelAttribute("car") Car car){    
-//        cs.insertCar(car);    
-//        return "redirect:/all";    
-//    }      
-//	
-//	@RequestMapping("/all")
-//	public List<Car> getAll(){
-//		return cs.getAllCars();
-//	}
-//	
-//	@RequestMapping("/car/{id}")
-//	public Car getCar(@PathVariable("id") String id) {
-//		return cs.getCarById(id);
-//	}
-	
-//	@RequestMapping(value="/editcar/{id}")    
-//    public String edit(@PathVariable String id, Model m){    
-//        Car car=cs.getCarById(id);    
-//        m.addAttribute("command",car);  
-//        return "careditform";    
-//    }   
-//	
-//	@RequestMapping(value="/editsave",method = RequestMethod.POST)    
-//    public String editsave(@ModelAttribute("emp") Car car){    
-//        cs.update(car);    
-//        return "redirect:/viewemp";    
-//    }
-//	
-//	@RequestMapping(value="/deleteemp/{id}",method = RequestMethod.GET)    
-//    public String delete(@PathVariable int id){    
-//        dao.delete(id);    
-//        return "redirect:/viewemp";    
-//    }   
+
 }

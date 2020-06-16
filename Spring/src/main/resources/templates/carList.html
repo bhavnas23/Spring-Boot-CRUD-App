@@ -1,16 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
    <head>
-      <meta charset="UTF-8" />
+   
+      <meta charset="UTF-8"/>
       <title>Car List</title>
-      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    </head>
    <body>
       <h1>Car List</h1>
       <a href="addCar">Add Car</a>
       <br/><br/>
       <div>
-         <table border="0">
+      	 <input class="form-control" id="myInput" type="text" onkeyup="myFunction()" placeholder="Search..">
+         <table class="table" border="0" id="myTable">
             <tr>
                <th>Car ID</th>
                <th>Car Name</th>
@@ -24,6 +28,7 @@
                <th></th>
             </tr>
             <tr th:each ="car : ${cars}">
+
                <td th:utext="${car.carId}">...</td>
                <td th:utext="${car.carName}">...</td>
                <td th:utext="${car.carModel}">...</td>
@@ -34,8 +39,33 @@
                <td></td>
                <td><a th:href="@{/editCar/{id}(id=${car.carId})}">Edit</a></td>
                <td><a th:href="@{/deleteCar/{id}(id=${car.carId})}">Delete</a></td>
+
             </tr>
          </table>
       </div>
+      <script>
+      function myFunction() {
+    	  // Declare variables
+    	  var input, filter, table, tr, td, i, txtValue;
+    	  input = document.getElementById("myInput");
+    	  filter = input.value.toUpperCase();
+    	  table = document.getElementById("myTable");
+    	  tr = table.getElementsByTagName("tr");
+
+    	  // Loop through all table rows, and hide those who don't match the search query
+    	  for (i = 0; i < tr.length; i++) {
+    	    td = tr[i].getElementsByTagName("td")[0];
+    	    if (td) {
+    	      txtValue = td.textContent || td.innerText;
+    	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    	        tr[i].style.display = "";
+    	      } else {
+    	        tr[i].style.display = "none";
+    	      }
+    	    }
+    	  }
+    	}
+	</script>
+      
    </body>
 </html>
